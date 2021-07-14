@@ -3,25 +3,24 @@ import { connect } from 'react-redux';
 
 import { getCall } from '../actions';
 
-const Person = (props) => {
-  console.log(props);
+const Person = ({ getCall, quote, isFetching, error }) => {
   // { person, isFetching, error }; props.person = persion, etc
   useEffect(() => {
     getCall();
   }, [getCall]);
 
-  if (props.error) {
+  if (error) {
     return <h2>We got an error: {error}</h2>;
   }
 
-  if (props.isFetching) {
+  if (isFetching) {
     return <h2>Fetching quote for ya!</h2>;
   }
 
   return (
     <>
       <div>
-        <h2>Quote: {props.quote}</h2>
+        <h2>Quote: {quote}</h2>
       </div>
       <button onClick={getCall}>Get new quote</button>
     </>
@@ -36,4 +35,4 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps)(Person);
+export default connect(mapStateToProps, { getCall })(Person);
