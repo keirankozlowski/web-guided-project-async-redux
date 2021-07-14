@@ -1,34 +1,36 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 
-const Person = ({ person, isFetching, error }) => {
+import { getCall } from '../actions';
+
+const Person = (props) => {
+  console.log(props);
   // { person, isFetching, error }; props.person = persion, etc
   useEffect(() => {
-    
-  });
+    getCall();
+  }, [getCall]);
 
-  if (error) {
+  if (props.error) {
     return <h2>We got an error: {error}</h2>;
   }
 
-  if (isFetching) {
-    return <h2>Fetching person for ya!</h2>;
+  if (props.isFetching) {
+    return <h2>Fetching quote for ya!</h2>;
   }
 
   return (
     <>
       <div>
-        <h2>Say Hi to: {person.name.first} {person.name.last}</h2>
-        <img src={person.picture.large}/>
+        <h2>Quote: {props.quote}</h2>
       </div>
-      <button>Get new person</button>
+      <button onClick={getCall}>Get new quote</button>
     </>
   );
 };
 
 const mapStateToProps = state => {
   return {
-    person: state.person,
+    quote: state.quote,
     isFetching: state.isFetching,
     error: state.error
   };

@@ -4,23 +4,30 @@ import {
   FETCHING_FAIL
 } from '../actions';
 
+// const initialState = {
+//   person: {
+//     name: {
+//       title: "Mr",
+//       first: "Silas",
+//       last: "Petersen"
+//     },
+//     picture: {
+//       large: "https://randomuser.me/api/portraits/men/70.jpg",
+//       medium: "https://randomuser.me/api/portraits/med/men/70.jpg",
+//       thumbnail: "https://randomuser.me/api/portraits/thumb/men/70.jpg"
+//     }
+//   },
+//   isFetching: false,
+//   error: ''
+// };
+
 const initialState = {
-  person: {
-    name: {
-      title: "Mr",
-      first: "Silas",
-      last: "Petersen"
-    },
-    picture: {
-      large: "https://randomuser.me/api/portraits/men/70.jpg",
-      medium: "https://randomuser.me/api/portraits/med/men/70.jpg",
-      thumbnail: "https://randomuser.me/api/portraits/thumb/men/70.jpg"
-    }
-  },
+  quote: 'starter quote',
   isFetching: false,
   error: ''
 };
 
+// set up the rest of the cases, then play with the app to see how the data flows
 export const reducer = (state = initialState, action) => {
   switch (action.type) {
     case FETCHING_START: 
@@ -32,6 +39,14 @@ export const reducer = (state = initialState, action) => {
     case FETCHING_SUCCESS: 
       return {
         ...state,
+        isFetching: false,
+        quote: action.payload
+      };
+    case FETCHING_FAIL: 
+      return {
+        ...state,
+        isFetching: false,
+        error: action.payload
       };
     default:
       return state;

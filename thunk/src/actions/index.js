@@ -4,23 +4,24 @@ export const FETCHING_START = 'FETCHING_START';
 export const FETCHING_SUCCESS = 'FETCHING_SUCCESS';
 export const FETCHING_FAIL = 'FETCHING_FAIL';
 
-export const getCall = (val) => {
+export const getCall = () => dispatch => {
     dispatch({ type: FETCHING_START });
+    // https://randomuser.me/api/
 
     axios
-        .get(`https://randomuser.me/api/`)
+        .get(`https://api.kanye.rest`)
         .then((res) => {
-            console.log(res);
+            dispatch({ type: FETCHING_SUCCESS, payload: res.data.quote });
         })
         .catch((err) => {
-            dispatch(getError(err));
+            dispatch({ type: FETCHING_FAIL, payload: `${err.response.message}, code: ${err.response.code}` });
             console.log(err);
         });
 };
 
-export const getError = (err) => {
-    return({
-        type: FETCHING_FAIL,
-        payload: `${err.response.message}, code: ${err.response.code}`
-    });
-}
+// export const getError = (err) => {
+//     return({
+//         type: FETCHING_FAIL,
+//         payload: `${err.response.message}, code: ${err.response.code}`
+//     });
+// }
