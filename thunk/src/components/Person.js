@@ -2,7 +2,9 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 
 const Person = ({ person, isFetching, error }) => {
+  // { person, isFetching, error }; props.person = persion, etc
   useEffect(() => {
+    
   });
 
   if (error) {
